@@ -12,43 +12,42 @@ type user struct {
 	Age  int    `json:"age"`
 }
 
-// func (u *user) getUser(db *sql.DB) error {
-// 	//return errors.New("Not implemented")
-// 	statement := fmt.Sprintf("select name, age from person where id=%d", u.ID)
-// 	return db.QueryRow(statement).Scan(&u.Name, &u.Age)
-// }
+func (u *user) getUser(db *sql.DB) error {
+	//return errors.New("Not implemented")
+	statement := fmt.Sprintf("select name, age from person where id=%d", u.ID)
+	return db.QueryRow(statement).Scan(&u.Name, &u.Age)
+}
 
-// func (u *user) updateUser(db *sql.DB) error {
-// 	//return errors.New("Not implemented")
-// 	statement := fmt.Sprintf("update person set name='%s',age=%d where id=%d", u.Name, u.Age, u.ID)
-// 	_, err := db.Exec(statement)
-// 	return err
-// }
+func (u *user) updateUser(db *sql.DB) error {
+	//return errors.New("Not implemented")
+	statement := fmt.Sprintf("update person set name='%s',age=%d where id=%d", u.Name, u.Age, u.ID)
+	_, err := db.Exec(statement)
+	return err
+}
 
-// func (u *user) deleteUser(db *sql.DB) error {
-// 	//return errors.New("Not implemented")
-// 	statement := fmt.Sprintf("delete from person where id=%d", u.ID)
-// 	_, err := db.Exec(statement)
-// 	return err
-// }
+func (u *user) deleteUser(db *sql.DB) error {
+	//return errors.New("Not implemented")
+	statement := fmt.Sprintf("delete from person where id=%d", u.ID)
+	_, err := db.Exec(statement)
+	return err
+}
 
-// func (u *user) createUser(db *sql.DB) error {
-// 	//return errors.New("Not implemented")
-// 	statement := fmt.Sprintf("insert into person(name,age)values('%s',%d", u.Name, u.Age)
-// 	_, err := db.Exec(statement)
+func (u *user) createUser(db *sql.DB) error {
+	//return errors.New("Not implemented")
+	statement := fmt.Sprintf("insert into person(id,name,age)values(%d,'%s',%d)", u.ID, u.Name, u.Age)
+	_, err := db.Exec(statement)
 
-// 	if err != nil {
-// 		return err
-// 	}
+	if err != nil {
+		return err
+	}
+	err = db.QueryRow("select LAST_INSERT_ID()").Scan(&u.ID)
 
-// 	err = db.QueryRow("select last_insert_id()").Scan(&u.ID)
+	if err != nil {
+		return err
+	}
 
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	return nil
-// }
+	return nil
+}
 
 func getUsers(db *sql.DB, start, count int) ([]user, error) {
 	//return nil,errors.New("Not implemented")
