@@ -34,7 +34,7 @@ func (a *App) Initialize(user, password, dbname string) {
 		log.Fatal(err)
 	}
 
-	a.Router = mux.NewRouter()
+	a.Router = mux.NewRouter() // mux = multiplexor 多路傳輸
 	a.initializeRoutes()
 }
 
